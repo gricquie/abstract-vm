@@ -7,6 +7,7 @@
 # include <OperandFactory.hpp>
 
 # include <getStream.hpp>
+# include <execInstr.hpp>
 
 # include <eLexerTokenType.hpp>
 # include <LexerToken.hpp>

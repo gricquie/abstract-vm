@@ -58,7 +58,6 @@ void		Parser::run()
 {
 	while (state != nullptr)
 	{
-std::cout << peek().s << std::endl;
 		(this->*state)();
 	}
 }

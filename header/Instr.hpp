@@ -14,7 +14,7 @@ public:
 
 	~Instr(void);
 
-	void	execute(Stack &s);
+	void	execute(Stack &s) const;
 
 	typedef	void (Instr::*execF)(Stack &, const IOperand *) const;
 	

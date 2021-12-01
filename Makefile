@@ -29,6 +29,7 @@ SRCS_RAW =		main.cpp \
 				Stack.cpp \
 				Instr.cpp \
 				Parser.cpp \
+				execInstr.cpp \
 
 OBJS_RAW = $(SRCS_RAW:.cpp=.o)
 HEADERS_RAW =	abstract-vm.hpp \
@@ -44,6 +45,7 @@ HEADERS_RAW =	abstract-vm.hpp \
 				Stack.hpp \
 				Instr.hpp \
 				Parser.hpp \
+				execInstr.hpp \
 
 SRCS = $(addprefix $(SDIR)/, $(SRCS_RAW))
 OBJS = $(addprefix $(ODIR)/, $(OBJS_RAW))

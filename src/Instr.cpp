@@ -1,4 +1,5 @@
 #include <Instr.hpp>
+#include <iostream>
 
 Instr::Instr(void (Instr::*f)(Stack &, const IOperand*) const) :
 		execFunc(f), operand(nullptr) {}
@@ -20,29 +21,33 @@ Instr	&Instr::operator=(Instr const &rhs)
 
 Instr::~Instr(void) {}
 
-void	Instr::execute(Stack &s)
+void	Instr::execute(Stack &s) const
 {
 	(this->*this->execFunc)(s, operand);
 }
 
 void	Instr::push(Stack &s, const IOperand *o) const
 {
+	std::cout << "pushing " << o->toString() << std::endl;
 	s.push(o);
 }
 
 void	Instr::pop(Stack &s, const IOperand *o) const
 {
 	(void)o;
-	s.pop();
+	std::cout << "popping " << s.pop()->toString() << std::endl;
+	//s.pop();
 }
 
 void	Instr::dump(Stack &s, const IOperand *o) const
 {
+	std::cout << "dump not immplemented\n";
 	(void)s;
 	(void)o;
 }
 void	Instr::assert(Stack &s, const IOperand *o) const
 {
+	std::cout << "assert not immplemented\n";
 	(void)s;
 	(void)o;
 }
@@ -93,12 +98,14 @@ void	Instr::mod(Stack &s, const IOperand *o) const
 
 void	Instr::print(Stack &s, const IOperand *o) const
 {
+	std::cout << "print not immplemented\n";
 	(void)s;
 	(void)o;
 }
 
 void	Instr::exit(Stack &s, const IOperand *o) const
 {
+	std::cout << "exit not immplemented\n";
 	(void)s;
 	(void)o;
 }

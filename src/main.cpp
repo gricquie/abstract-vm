@@ -10,15 +10,12 @@ int		main(int argc, char **argv)
 	(void)argv;
 	try
 	{
-		Lexer					l("push Int8(54)\n pop");
+		Lexer					l("push Int8(4)\npush Double(3.5)\nsub\n pop");
 		std::vector<LexerToken>	t = l.getTokens();
-		
-		for_each(t.begin(), t.end(), [](const LexerToken &t){
-			std::cout << t.type << " => " << t.s << std::endl;
-		});
-	
 		Parser					p(t);
 		std::vector<Instr>		is = p.getInstr();
+
+		execInstr(is);
 	}
 	catch (std::exception &e)
 	{
