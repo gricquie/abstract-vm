@@ -1,6 +1,9 @@
 #ifndef EOPERANDTYPE_HPP
 # define EOPERANDTYPE_HPP
 
+# include <map>
+# include <string>
+
 typedef	enum operandType
 {
 	eUnknownOperandType = 0,
@@ -10,5 +13,7 @@ typedef	enum operandType
 	eFloat,
 	eDouble
 }		eOperandType;
+
+extern std::map<eOperandType, std::string>	operandTypeLiteralMap;
 
 #endif

@@ -1,5 +1,6 @@
 #include <Instr.hpp>
 #include <iostream>
+#include <algorithm>
 
 Instr::Instr(void (Instr::*f)(Stack &, const IOperand*) const) :
 		execFunc(f), operand(nullptr) {}
@@ -28,22 +29,22 @@ void	Instr::execute(Stack &s) const
 
 void	Instr::push(Stack &s, const IOperand *o) const
 {
-	std::cout << "pushing " << o->toString() << std::endl;
 	s.push(o);
 }
 
 void	Instr::pop(Stack &s, const IOperand *o) const
 {
 	(void)o;
-	std::cout << "popping " << s.pop()->toString() << std::endl;
-	//s.pop();
+	s.pop();
 }
 
 void	Instr::dump(Stack &s, const IOperand *o) const
 {
-	std::cout << "dump not immplemented\n";
-	(void)s;
 	(void)o;
+
+	for_each(s.stack.rbegin(), s.stack.rend(), [](const IOperand *o){
+		std::cout << operandTypeLiteralMap[o->getType()] << " : " << o->toString() << std::endl;
+	});
 }
 void	Instr::assert(Stack &s, const IOperand *o) const
 {

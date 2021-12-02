@@ -2,6 +2,15 @@
 #include <iostream>
 #include <FloatingPointException.hpp>
 
+std::map<eOperandType, std::string>	operandTypeLiteralMap = {
+	{eUnknownOperandType, "unknown"},
+	{eInt8, "Int8"},
+	{eInt16, "Int16"},
+	{eInt32, "Int32"},
+	{eFloat, "Float"},
+	{eDouble, "Double"}
+};
+
 template<typename T>
 Operand<T>::Operand(T value) : _value(value) {}
 

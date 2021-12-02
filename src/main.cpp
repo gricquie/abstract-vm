@@ -10,7 +10,7 @@ int		main(int argc, char **argv)
 	(void)argv;
 	try
 	{
-		Lexer					l("push Int8(4)\npush Double(3.5)\nsub\n pop");
+		Lexer					l("push Int16(4)\npush Float(3.5)\ndump");
 		std::vector<LexerToken>	t = l.getTokens();
 		Parser					p(t);
 		std::vector<Instr>		is = p.getInstr();

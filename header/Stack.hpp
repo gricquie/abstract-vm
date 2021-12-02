@@ -15,8 +15,6 @@ public:
 
 	void			push(const IOperand *o);
 	const IOperand	*pop(void);
-
-private:
 	std::vector<const IOperand*>	stack;
 };
 
