@@ -2,11 +2,14 @@
 #include <Stack.hpp>
 #include <algorithm>
 
-void	execInstr(std::vector<Instr> v)
+bool	execInstr(std::vector<Instr> v)
 {
 	Stack	s;
 
-	for_each(v.begin(), v.end(), [&s](const Instr &i){
-			i.execute(s);
-		});
+	for (const Instr i : v)
+	{
+		if (i.execute(s))
+			return (true);
+	};
+	return (false);
 }

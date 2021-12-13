@@ -10,12 +10,13 @@ int		main(int argc, char **argv)
 	(void)argv;
 	try
 	{
-		Lexer					l("push Int16(4)\npush Float(3.5)\ndump");
+		Lexer					l("push Int8(42)\nprint\nexit");
 		std::vector<LexerToken>	t = l.getTokens();
 		Parser					p(t);
 		std::vector<Instr>		is = p.getInstr();
 
-		execInstr(is);
+		if (!execInstr(is))
+			throw std::range_error("no exit"); // exit error
 	}
 	catch (std::exception &e)
 	{

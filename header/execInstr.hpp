@@ -4,6 +4,6 @@
 # include <vector>
 # include <Instr.hpp>
 
-void	execInstr(std::vector<Instr> v);
+bool	execInstr(std::vector<Instr> v);
 
 #endif

@@ -17,4 +17,7 @@
 # include <Instr.hpp>
 # include <Parser.hpp>
 
+# include <FloatingPointException.hpp>
+# include <AssertException.hpp>
+
 #endif
