@@ -19,7 +19,6 @@ public:
 	eLexerTokenType	type;
 	std::string		s;
 	unsigned int	line;
-	IOperand		*o;
 };
 
 #endif

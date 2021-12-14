@@ -27,6 +27,7 @@ private:
 
 	stateFunc				state;
 	std::string				error;
+	bool					has_error;
 	std::vector<LexerToken>	tokens;
 
 	void	addToken(eLexerTokenType t);

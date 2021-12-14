@@ -26,7 +26,7 @@ std::map<std::string, eLexerTokenType> lexerTokensMap =
 };
 
 Lexer::Lexer(std::string source) : input(source), start(0), pos(0),
-									line(1), state(&Lexer::lexText) {}
+						line(1), state(&Lexer::lexText), has_error(false) {}
 
 Lexer::Lexer(Lexer const &l)
 {
@@ -49,6 +49,8 @@ Lexer	&Lexer::operator=(Lexer const &rhs)
 std::vector<LexerToken>	Lexer::getTokens(void)
 {
 	run();
+	if (has_error)
+		throw new std::exception;
 	return (tokens);
 }
 
@@ -64,8 +66,13 @@ char	Lexer::next(void)
 {
 	pos++;
 	if (pos > input.size())
+	{
+		pos--;
 		return (0);
+	}
 	char r = input.at(pos - 1);
+	if (r == 0)
+		pos--;
 	return (r);
 }
 
@@ -98,11 +105,11 @@ bool	Lexer::contains(std::string valid, char c)
 
 bool	Lexer::accept(std::string valid)
 {
-	if (contains(valid, next()))
-		return (true);
-	backup();
 	if (contains(valid, peek()))
+	{
 		next();
+		return (true);
+	}
 	return (false);
 }
 
@@ -124,22 +131,35 @@ void	Lexer::lexText(void)
 	{
 		if (peek() == ';')
 			state = &Lexer::lexSemiColumn;
-		if (peek() == '\n')
+		if (peek() == '\n' || peek() == '\r')
 			state = &Lexer::lexNewline;
 		else if (std::isalpha(peek()))
 			state = &Lexer::lexAlphanum;
 		if (state != &Lexer::lexText)
 		{
 			if (pos > start)
+			{
 				addToken(eLexerUnknownToken);
+				error = "unknown token ";
+				error += input.substr(start, pos - start);
+				state = &Lexer::stateError;
+				ignore();
+			}
 			return ;
 		}
 		if (next() == 0)
 			break ;
 	}
 	if (pos > start)
+	{
 		addToken(eLexerUnknownToken);
-	state = nullptr;
+		error = "unknown token ";
+		error += input.substr(start, pos - start);
+		state = &Lexer::stateError;
+		ignore();
+	}
+	else
+		state = nullptr;
 }
 
 eLexerTokenType	Lexer::classify(void)
@@ -216,7 +236,7 @@ void	Lexer::lexRightParen(void)
 
 void	Lexer::lexNewline(void)
 {
-	while (accept("\n"))
+	while (accept("\n\r"))
 		line++;
 	addToken(eLexerSeparator);
 	state = &Lexer::lexText;
@@ -239,6 +259,7 @@ void	Lexer::lexSemiColumn(void)
 
 void	Lexer::stateError(void)
 {
+	has_error = true;
 	std::cout << "bad Syntax line " << line << " : " << error << std::endl;
 	state = &Lexer::lexText;
 }

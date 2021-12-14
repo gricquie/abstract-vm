@@ -21,6 +21,7 @@ Parser::Parser(std::vector<LexerToken> tokens) : tokens(tokens)
 {
 	pos = 0;
 	line = 1;
+	has_error = 0;
 	state = &Parser::parseIdentifier;
 	error = "";
 	currF = nullptr;
@@ -33,6 +34,7 @@ Parser::Parser(Parser const &p)
 	this->tokens = p.tokens;
 	this->pos = p.pos;
 	this->line = p.line;
+	this->has_error = p.has_error;
 	this->state = p.state;
 	this->error = p.error;
 	this->currF = p.currF;
@@ -51,6 +53,8 @@ Parser::~Parser(void) {}
 std::vector<Instr>	Parser::getInstr(void)
 {
 	run();
+	if (has_error)
+		throw new std::exception;
 	return (instrs);
 }
 
@@ -94,15 +98,21 @@ Instr::execF	Parser::getExecFunc(eLexerTokenType t)
 void	Parser::stateError(void)
 {
 	std::cout << "bad Syntax line " << line << " : " << error << std::endl;
-	while (next().type != eLexerSeparator)
-		;
+	while (peek().type != eLexerSeparator && peek().type != eLexerEndOfInput)
+		next();
 	state = &Parser::parseIdentifier;
+	has_error = true;
 }
 
 void	Parser::parseIdentifier(void)
 {
 	auto	t = next();
 
+	if (t.type == eLexerEndOfInput)
+	{
+		state = nullptr;
+		return ;
+	}
 	if (t.type < eLexerOperatorPush || t.type > eLexerOperatorExit)
 	{
 		state = &Parser::stateError;

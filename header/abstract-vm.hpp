@@ -20,4 +20,7 @@
 # include <FloatingPointException.hpp>
 # include <AssertException.hpp>
 
+# include <handleFile.hpp>
+# include <handleStdin.hpp>
+
 #endif

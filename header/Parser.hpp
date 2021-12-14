@@ -28,6 +28,7 @@ private:
 	OperandFactory			factory;
 	size_t					pos;
 	size_t					line;
+	bool					has_error;
 
 	Instr::execF			currF;
 	eLexerTokenType			currT;

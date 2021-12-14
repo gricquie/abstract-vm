@@ -1,14 +1,10 @@
 #include <LexerToken.hpp>
 
 LexerToken::LexerToken(eLexerTokenType type, std::string s, unsigned int l)
-	: type(type), s(s), line(l), o(nullptr) {}
-
-LexerToken::LexerToken(eLexerTokenType type, std::string s,
-			unsigned int l, IOperand *o)
-	: type(type), s(s), line(l), o(o) {}
+	: type(type), s(s), line(l) {}
 
 LexerToken::LexerToken(LexerToken const &t)
-	: type(t.type), s(t.s) {}
+	: type(t.type), s(t.s), line(t.line) {}
 
 LexerToken	&LexerToken::operator=(LexerToken const &rhs)
 {

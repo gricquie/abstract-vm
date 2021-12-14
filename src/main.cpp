@@ -6,21 +6,21 @@
 
 int		main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
+	if (argc > 2)
+	{
+		std::cout << "usage : abstract-vm [file]" << std::endl;
+		return -1;
+	}
 	try
 	{
-		Lexer					l("push Int8(42)\nprint\nexit");
-		std::vector<LexerToken>	t = l.getTokens();
-		Parser					p(t);
-		std::vector<Instr>		is = p.getInstr();
-
-		if (!execInstr(is))
-			throw std::range_error("no exit"); // exit error
+//		if (argc == 1)
+//			return (handleStdin());
+//		else
+			return (handleFile(argv[1]));
 	}
 	catch (std::exception &e)
 	{
+		std::cout << "exception catched" << std::endl;
 		std::cout << e.what() << std::endl;
 	}
-	return 0;
 }
