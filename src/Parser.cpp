@@ -54,7 +54,7 @@ std::vector<Instr>	Parser::getInstr(void)
 {
 	run();
 	if (has_error)
-		throw new std::exception;
+		throw std::range_error("");
 	return (instrs);
 }
 

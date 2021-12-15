@@ -50,7 +50,7 @@ std::vector<LexerToken>	Lexer::getTokens(void)
 {
 	run();
 	if (has_error)
-		throw new std::exception;
+		throw std::range_error("");
 	return (tokens);
 }
 

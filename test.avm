@@ -2,3 +2,4 @@ push Int8(42)
 print
 push Int8(10)
 print
+exit

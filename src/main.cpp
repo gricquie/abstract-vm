@@ -13,14 +13,13 @@ int		main(int argc, char **argv)
 	}
 	try
 	{
-//		if (argc == 1)
-//			return (handleStdin());
-//		else
+		if (argc == 1)
+			return (handleStdin());
+		else
 			return (handleFile(argv[1]));
 	}
 	catch (std::exception &e)
 	{
-		std::cout << "exception catched" << std::endl;
 		std::cout << e.what() << std::endl;
 	}
 }

@@ -130,7 +130,7 @@ bool	Instr::print(Stack &s, const IOperand *o) const
 
 	s.push(top);
 	if (top->getType() != eInt8)
-		throw AssertException("assert error");
+		throw AssertException("not and Int8 on top");
 	const Int8	*c = reinterpret_cast<const Int8 *>(top);
 	std::cout << (char)c->getValue();
 	return (false);
